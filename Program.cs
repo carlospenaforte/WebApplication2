@@ -31,6 +31,7 @@ app.MapGet("apps", () => apps);
 
 // GET /apps/1
 
-app.MapGet("apps/{Id}", (int Id) => apps.Find(app => app.Id == Id));
+app.MapGet("apps/{Id}", (int Id) => 
+    apps.Find(app => app.Id == Id) ?? Results.NotFound($"App com ID {Id} não encontrado"));
 
 app.Run();
