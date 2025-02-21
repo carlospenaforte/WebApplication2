@@ -1,4 +1,6 @@
+using WebApplication2;
 using WebApplication2.DTOs;
+
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -24,8 +26,11 @@ List<AppDTO> apps = [
         new DateOnly(2000, 3, 12))
 ];
 
+// GET /apps
 app.MapGet("apps", () => apps);
 
-app.MapGet("/", () => "Hello World!");
+// GET /apps/1
+
+app.MapGet("apps/{Id}", (int Id) => apps.Find(app => app.Id == Id));
 
 app.Run();

@@ -5,5 +5,5 @@ public record class AppDTO(
     int Id, 
     string Name, 
     string Genre, 
-    decimal Price,
+    double Price,
     DateOnly ReleaseDate);

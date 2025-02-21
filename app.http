@@ -1,1 +1,4 @@
-GET http://localhost:5145
+GET http://localhost:5145/apps
+
+###
+GET http://localhost:5145/apps/1
