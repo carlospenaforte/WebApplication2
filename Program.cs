@@ -32,9 +32,24 @@ app.MapGet("apps", () => apps);
 // GET /apps/1
 app.MapGet("apps/{Id}", (int Id) => 
     apps.Find(app => app.Id == Id) ?? Results.NotFound($"App com ID {Id} não encontrado"));
+    .WithName("GetApp");
+
 
 // POST /apps
-app.MapPost("createapps", () => createapps);
+app.MapPost("apps", (CreateAppDTO newApp) =>
+{
+    AppDTO app = new(
+        apps.Count + 1,
+        newApp.Name,
+        newApp.Genre,
+        newApp.Price,
+        newApp.ReleaseDate
+        );
+
+    apps.Add( app );
+
+    return Results.CreatedAtRoute("GetApp", new {Id = app.Id}, app);
+});
 
 
 
