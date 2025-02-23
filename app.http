@@ -2,3 +2,14 @@ GET http://localhost:5145/apps
 
 ###
 GET http://localhost:5145/apps/1
+
+###
+POST http://localhost:5145/apps
+Content-Type: application/json
+
+{
+    "name": "Whatsapp",
+    "genre": "Social Media",
+    "price": 0.99,
+    "releaseDate": "2009-05-03"
+}
