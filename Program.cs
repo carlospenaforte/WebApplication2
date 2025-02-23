@@ -1,6 +1,5 @@
 using WebApplication2;
 using WebApplication2.DTOs;
-namespace WebApplication2;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -32,7 +31,7 @@ List<AppDTO> apps = [
 app.MapGet("apps", () => apps);
 
 // GET /apps/1
-app.MapGet("apps/{Id}", (int Id) => apps.Find(app => app.Id == id))
+app.MapGet("apps/{Id}", (int Id) => apps.Find(app => app.Id == Id))
     .WithName(GetAppEndpointName);
 
 
@@ -44,14 +43,12 @@ app.MapPost("apps", (CreateAppDTO newApp) =>
         newApp.Name,
         newApp.Genre,
         newApp.Price,
-        newApp.ReleaseDate
-        );
+        newApp.ReleaseDate);
 
-    apps.Add( app );
+    apps.Add(app);
 
     return Results.CreatedAtRoute(GetAppEndpointName, new {Id = app.Id}, app);
 });
-
 
 
 app.Run();
