@@ -1,6 +1,6 @@
 using WebApplication2;
 using WebApplication2.DTOs;
-
+namespace WebApplication2;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -32,8 +32,7 @@ List<AppDTO> apps = [
 app.MapGet("apps", () => apps);
 
 // GET /apps/1
-app.MapGet("apps/{Id}", (int Id) => 
-    apps.Find(app => app.Id == Id) ?? Results.NotFound($"App com ID {Id} não encontrado"));
+app.MapGet("apps/{Id}", (int Id) => apps.Find(app => app.Id == id))
     .WithName(GetAppEndpointName);
 
 
