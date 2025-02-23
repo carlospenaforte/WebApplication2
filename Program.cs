@@ -5,6 +5,8 @@ using WebApplication2.DTOs;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+const string GetAppEndpointName = "GetApp";
+
 List<AppDTO> apps = [
     new (
         1,
@@ -32,7 +34,7 @@ app.MapGet("apps", () => apps);
 // GET /apps/1
 app.MapGet("apps/{Id}", (int Id) => 
     apps.Find(app => app.Id == Id) ?? Results.NotFound($"App com ID {Id} não encontrado"));
-    .WithName("GetApp");
+    .WithName(GetAppEndpointName);
 
 
 // POST /apps
@@ -48,7 +50,7 @@ app.MapPost("apps", (CreateAppDTO newApp) =>
 
     apps.Add( app );
 
-    return Results.CreatedAtRoute("GetApp", new {Id = app.Id}, app);
+    return Results.CreatedAtRoute(GetAppEndpointName, new {Id = app.Id}, app);
 });
 
 
