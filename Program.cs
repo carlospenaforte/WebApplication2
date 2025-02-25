@@ -66,4 +66,12 @@ app.MapPut("apps/{Id}", (int Id, UpdateAppDTO updatedApp) =>
     return Results.NoContent();
 });
 
+// DELETE /GAMES/1
+app.MapDelete("apps/{Id}", (int Id) => 
+{
+    apps.RemoveAll(apps => app.Id == Id);
+
+    return Results.NoContent();
+});
+
 app.Run();
