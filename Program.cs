@@ -50,5 +50,20 @@ app.MapPost("apps", (CreateAppDTO newApp) =>
     return Results.CreatedAtRoute(GetAppEndpointName, new {Id = app.Id}, app);
 });
 
+// PUT / APPS
+app.MapPut("apps/{ID}", (int ID, UpdateAppDTO updateApp) =>
+{
+    var index = apps.FindIndex(app => app.ID == ID);
+
+    apps.[index] = new AppDTO(
+        ID,
+        UpdateGame.Name,
+        UpdateGame.Genre,
+        UpdateGame.Price,
+        UpdateGame.ReleaseDate
+        );
+
+    return Results.NoContent();
+});
 
 app.Run();

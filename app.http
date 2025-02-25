@@ -13,3 +13,14 @@ Content-Type: application/json
     "price": 0.99,
     "releaseDate": "2009-05-03"
 }
+
+###
+PUT http://localhost:5145/apps/1
+Content-Type: appication/json
+
+{
+  "name": "App1",
+  "genre": "Music",
+  "price": 9.9,
+  "releaseDate": "2005-04-20"
+}
