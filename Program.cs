@@ -51,17 +51,17 @@ app.MapPost("apps", (CreateAppDTO newApp) =>
 });
 
 // PUT / APPS
-app.MapPut("apps/{ID}", (int ID, UpdateAppDTO updateApp) =>
+app.MapPut("apps/{Id}", (int Id, UpdateAppDTO updatedApp) =>
 {
-    var index = apps.FindIndex(app => app.ID == ID);
+    var index = apps.FindIndex(app => app.Id == Id);
 
-    apps.[index] = new AppDTO(
-        ID,
-        UpdateGame.Name,
-        UpdateGame.Genre,
-        UpdateGame.Price,
-        UpdateGame.ReleaseDate
-        );
+    apps[index] = new AppDTO(
+        Id,
+        updatedApp.Name,
+        updatedApp.Genre,
+        updatedApp.Price,
+        updatedApp.ReleaseDate
+    );
 
     return Results.NoContent();
 });
