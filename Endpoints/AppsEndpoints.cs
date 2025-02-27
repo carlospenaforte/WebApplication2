@@ -46,6 +46,11 @@ public static class AppsEndpoints
         // POST /apps
         group.MapPost("/", (CreateAppDTO newApp) =>
         {
+            if (string.IsNUllOrEmpty(newApp.Name))
+            {
+                return Results.BadRequest("Name is required");
+            }
+
             AppDTO app = new(
                 apps.Count + 1,
                 newApp.Name,
