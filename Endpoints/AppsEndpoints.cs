@@ -26,13 +26,15 @@ public static class AppsEndpoints
         new DateOnly(2000, 3, 12))
     ];
 
-    public static WebApplication2 MapAppsEndpoints(this WebApplication2 app)
+    public static RouteGroupBuilder MapAppsEndpoints(this WebApplication2 app)
     {
+        var group = app.MapGroup("apps");
+
         // GET /apps
-        app.MapGet("apps", () => apps);
+        group.MapGet("/", () => apps);
 
         // GET /apps/1
-        app.MapGet("apps/{Id}", (int Id) =>
+        group.MapGet("/{Id}", (int Id) =>
         {
             AppDTO? apps = apps.Find(app => app.Id == Id);
 
@@ -42,7 +44,7 @@ public static class AppsEndpoints
 
 
         // POST /apps
-        app.MapPost("apps", (CreateAppDTO newApp) =>
+        group.MapPost("/", (CreateAppDTO newApp) =>
         {
             AppDTO app = new(
                 apps.Count + 1,
@@ -57,7 +59,7 @@ public static class AppsEndpoints
         });
 
         // PUT / APPS
-        app.MapPut("apps/{Id}", (int Id, UpdateAppDTO updatedApp) =>
+        group.MapPut("/{Id}", (int Id, UpdateAppDTO updatedApp) =>
         {
             var index = apps.FindIndex(app => app.Id == Id);
 
@@ -78,13 +80,13 @@ public static class AppsEndpoints
         });
 
         // DELETE /GAMES/1
-        app.MapDelete("apps/{Id}", (int Id) =>
+        group.MapDelete("/{Id}", (int Id) =>
         {
             apps.RemoveAll(apps => app.Id == Id);
 
             return Results.NoContent();
         });
 
-        return app;
+        return group;
     }
 }
