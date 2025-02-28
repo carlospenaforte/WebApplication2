@@ -28,7 +28,8 @@ public static class AppsEndpoints
 
     public static RouteGroupBuilder MapAppsEndpoints(this WebApplication2 app)
     {
-        var group = app.MapGroup("apps");
+        var group = app.MapGroup("apps")
+                       .WithParameterValidadion();
 
         // GET /apps
         group.MapGet("/", () => apps);
@@ -45,12 +46,7 @@ public static class AppsEndpoints
 
         // POST /apps
         group.MapPost("/", (CreateAppDTO newApp) =>
-        {
-            if (string.IsNUllOrEmpty(newApp.Name))
-            {
-                return Results.BadRequest("Name is required");
-            }
-
+        { 
             AppDTO app = new(
                 apps.Count + 1,
                 newApp.Name,
@@ -61,7 +57,8 @@ public static class AppsEndpoints
             apps.Add(app);
 
             return Results.CreatedAtRoute(GetAppEndpointName, new { Id = app.Id }, app);
-        });
+        })
+        .WithParameterValidation();
 
         // PUT / APPS
         group.MapPut("/{Id}", (int Id, UpdateAppDTO updatedApp) =>
