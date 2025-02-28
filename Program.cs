@@ -1,9 +1,10 @@
-using System.Reflection.Metadata.Ecma335;
-using WebApplication2;
-using WebApplication2.DTOs;
 using WebApplication2.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connString = "Data Source=AppStore.db";
+builder.Services.AddSqlite<AppStoreContext>(connString);
+
 var app = builder.Build();
 
 app.MapAppsEndpoints();
